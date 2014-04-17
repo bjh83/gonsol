@@ -1,4 +1,4 @@
-module HumanPlayer where
+module Player.HumanPlayer where
 
 import GameElements
 

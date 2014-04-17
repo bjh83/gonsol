@@ -1,4 +1,4 @@
-module ComputerPlayer where
+module Player.ComputerPlayer where
 
 import GameElements
 

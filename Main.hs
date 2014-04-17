@@ -1,6 +1,6 @@
 module Main where
 
-import HumanPlayer
+import Player.HumanPlayer
 
 
 main = do
