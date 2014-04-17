@@ -4,13 +4,13 @@ data Unit = Unit { position :: (Int, Int)
                  , health :: Int
                  , attack :: Int
                  , defense :: Int
-                 } deriving (Eq)
+                 } deriving (Eq, Show)
 
 let soldier = Unit (0, 0) 100 20 20
 
 data PlayerState = PlayerState { name :: String
                                , units :: [Unit]
-                               } deriving (Eq)
+                               } deriving (Eq, Show)
 
 type GameState = [PlayerState]
 

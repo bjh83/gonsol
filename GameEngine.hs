@@ -1,4 +1,4 @@
-module GameEngine where
+module GameEngine (runGame) where
 
 import Control.Monad.State
 import GameElements
@@ -18,7 +18,7 @@ gameLoop :: (String -> GameState -> (String, IO GameState)) -> String -> GameSta
 gameLoop takeTurn' player state =
   let (nextPlayer, wrappedState) = takeTurn' player state
   in do nextState <- wrappedState
-        if gameOver nextState
+        if <- gameOver nextState
         then return nextState
         else gameLoop takeTurn' nextPlayer nextState
 
