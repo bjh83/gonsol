@@ -9,8 +9,8 @@ import Utils
 -- and creates a pair representing the next player and the next state.
 takeTurn :: [(String, Player)] -> String -> GameState -> (String, IO GameState)
 takeTurn players playerName state =
-  let currentPlayer = snd . head . filter (\(name, action) -> name == playerName) players
-  in (next playerName $ fst . unzip players, currentPlayer action)
+  let currentPlayer = snd . head . filter (\(name, action) -> name == playerName) $ players
+  in (next playerName $ (fst . unzip) players, currentPlayer state)
 
 -- Takes a function that transforms the current state into the next state and 
 -- applies the function until the game concludes.
@@ -18,7 +18,7 @@ gameLoop :: (String -> GameState -> (String, IO GameState)) -> String -> GameSta
 gameLoop takeTurn' player state =
   let (nextPlayer, wrappedState) = takeTurn' player state
   in do nextState <- wrappedState
-        if <- gameOver nextState
+        if True -- gameOver nextState
         then return nextState
         else gameLoop takeTurn' nextPlayer nextState
 
@@ -26,6 +26,6 @@ gameLoop takeTurn' player state =
 -- the game state until the game is over.
 runGame :: [(String, Player)] -> GameState -> IO GameState
 runGame players state =
-  let firstPlayer = fst . head players
+  let firstPlayer = fst . head $ players
       takeTurn' = takeTurn players
   in gameLoop takeTurn' firstPlayer state

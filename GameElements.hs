@@ -6,7 +6,7 @@ data Unit = Unit { position :: (Int, Int)
                  , defense :: Int
                  } deriving (Eq, Show)
 
-let soldier = Unit (0, 0) 100 20 20
+soldier = Unit (0, 0) 100 20 20
 
 data PlayerState = PlayerState { name :: String
                                , units :: [Unit]
@@ -22,8 +22,5 @@ getAllUnits state = state >>= units
 getAllNames :: GameState -> [String]
 getAllNames = map name
 
-getPlayerByName :: GameState -> String -> PlayerState
-getPlayerByName gameState playerName = 
-  let pairList = map (\state -> (name state, state)) GameState 
-      singleton = filter (\(name, state) -> playerName == name) pairList
-  in (\[element] -> element) singleton
+getPlayerByName :: String -> GameState -> PlayerState
+getPlayerByName playerName gameState = head $ filter ((playerName ==) . GameElements.name) gameState

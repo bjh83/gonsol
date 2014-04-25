@@ -1,5 +1,6 @@
 module Player.Board where
 
+import Data.List.Zipper
 import Utils
 import GameElements
 
@@ -12,8 +13,8 @@ data Board = Board { board :: [[Char]]
 set :: [[a]] -> (Int, Int) -> a -> [[a]]
 set outerList (x, y) value =
   let outerZipper = doNTimes y left $ fromList outerList
-      innerZipper = doNTimes x left $ fromList outerZipper
-      newOuterZipper = replace (toList . replace value innerZipper) outerZipper
+      innerZipper = doNTimes x left $ fromList $ cursor outerZipper
+      newOuterZipper = replace (toList $ replace value innerZipper) outerZipper
   in toList newOuterZipper
 
 setInBoard :: Board -> (Int, Int) -> Char -> Board
@@ -29,6 +30,6 @@ initBoard char (width, height) =
 
 render :: String -> GameState -> Board
 render name state = 
-  let board = initBoard ' ' (30, 20)
-      setInBoard' = \board, unit -> setInBoard board (position unit) 'D'
-  in foldl setInBoard board $ getAllUnits state
+  let gameBoard = initBoard ' ' (30, 20)
+      setInBoard' = \board unit -> setInBoard board (position unit) 'D'
+  in foldl setInBoard' gameBoard $ getAllUnits state

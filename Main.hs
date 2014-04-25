@@ -1,7 +1,10 @@
 module Main where
 
+import GameElements
+import GameEngine
 import Player.HumanPlayer
 
 
 main = do
-  putStrLn $ runGame [("Human", takeTurn)] [PlayerState "Human" [soldier]]
+  runGame [("Human", takeTurn "Human")] [PlayerState "Human" [soldier]]
+  putStrLn "Done."
