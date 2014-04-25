@@ -1,4 +1,3 @@
-{-# INCLUDE C/draw_board.h #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 module Player.PlayerInteraction where
 
@@ -18,3 +17,9 @@ showBoard gameBoard =
   in do
     unWrappedBoard <- rawBoard
     c_showBoard unWrappedBoard rawWidth rawHeight
+
+foreign import ccall "initialize"
+  initialize :: IO ()
+
+foreign import ccall "terminate"
+  terminate :: IO () 
