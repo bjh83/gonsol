@@ -1,4 +1,4 @@
-{-# INCLUDE C/draw_board.c #-}
+{-# INCLUDE C/draw_board.h #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 module Player.PlayerInteraction where
 
