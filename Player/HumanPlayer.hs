@@ -2,6 +2,9 @@ module Player.HumanPlayer where
 
 import Control.Monad.Maybe
 import GameElements
+import Parser.Parser
+import Player.Board
+import Player.PlayerInteraction
 
 
 data PlayerStateIDMapping = PlayerStateIDMapping { name :: String
@@ -21,7 +24,7 @@ getStateFromUser :: Board -> GameStateIDMapping -> IO GameStateIDMapping
 getStateFromUser board gameStateIDMapping = 
   let newState = runMaybe $ do
     showBoard board
-    input <- lift getUserInput
+    input <- lift getLine
     newState <- parse gameStateIDMapping input
   in if isJust newState then fromJust newState
                         else getStateFromUser
